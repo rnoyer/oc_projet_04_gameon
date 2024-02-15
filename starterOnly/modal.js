@@ -177,10 +177,10 @@ function validateTermsCheckbox() {
 }
 
 
-function checkAndValidateField(rule, ruleParam, DOMelement, alertMessage){
+function checkAndValidateField(rule, ruleParam, DOMElement, alertMessage){
   console.log("ruleParam: " + ruleParam)
   const checkRule = rule(ruleParam);
-  const elementFormData = DOMelement.parentNode;
+  const elementFormData = DOMElement.parentNode;
   if (!checkRule) {
     elementFormData.setAttribute("data-error", alertMessage);
     elementFormData.setAttribute("data-error-visible", "true");
@@ -191,7 +191,7 @@ function checkAndValidateField(rule, ruleParam, DOMelement, alertMessage){
 }
 
 const fieldParams = {
-  firstName: [isNameValid, firstName.value, firstName, "ta mémé"],
+  firstName: [isNameValid, firstName.value, firstName, "message test"],
 };
 
 submitBtn.addEventListener("click", (event) => {
