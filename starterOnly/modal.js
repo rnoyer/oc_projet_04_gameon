@@ -20,6 +20,8 @@ const lastName = document.querySelector("#last"); // (rno) Store form ...
 const email = document.querySelector("#email"); // (rno) Store form ...
 const date = document.querySelector("#birthdate"); // (rno) Store form ...
 const quantity = document.querySelector("#quantity"); // (rno) Store form ...
+const radioButtons = document.querySelectorAll(".checkbox-input[type='radio']"); // (rno) Store form ...
+const checkboxTerms = document.querySelector("#checkbox1"); // (rno) Store form ...
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -49,9 +51,32 @@ function isEmailValid(email) {
 }
 // Check date format
 function isDateValid(date) {
-  console.log(date);
-  const dateRegEx = new RegExp("(?:\d{4})-(?:\d{2})-(?:\d{2})");
+  const dateRegEx = new RegExp("^\\d{4}-\\d{2}-\\d{2}$");
   return dateRegEx.test(date);
+}
+// Check Quantity
+function isQuantityValid(quantity) {
+  if (!!quantity && quantity >= 0 && quantity <= 99){
+    return true;
+  }
+  return false;
+}
+// Check radio buttons for location
+function isLocationChecked(radioButtons){
+  for (let i = 0; i < radioButtons.length; i++) {
+    const radioButton = radioButtons[i];
+    if (radioButton.checked) {
+      return true;
+    }
+  }
+  return false;
+}
+// Check Terms checkbox
+function isAcceptedTerms(checkbox){
+  if(checkbox.checked){
+    return true;
+  }
+  return false;
 }
 
 // ---------------
@@ -115,23 +140,66 @@ function validateBirthdateField() {
   }
 }
 
-function validateQuantityField() { }
+function validateQuantityField() {
+  const quantityValid = isQuantityValid(quantity.value)
+  const quantityFormData = quantity.parentNode;
+  if (!quantityValid) {
+    quantityFormData.setAttribute("data-error", "Veuillez entrer un nombre entre 0 et 99");
+    quantityFormData.setAttribute("data-error-visible", "true");
+  } else {
+    quantityFormData.removeAttribute("data-error");
+    quantityFormData.removeAttribute("data-error-visible");
+  }
+ }
 
-function validateLocationRadioButton() { }
+function validateLocationRadioButton() {
+  const isLocationOk = isLocationChecked(radioButtons)
+  const locationFormData = radioButtons[0].parentNode;
+  if (!isLocationOk) {
+    locationFormData.setAttribute("data-error", "Choisissez un lieu");
+    locationFormData.setAttribute("data-error-visible", "true");
+  } else {
+    locationFormData.removeAttribute("data-error");
+    locationFormData.removeAttribute("data-error-visible");
+  }
+}
 
-function validateTermsCheckbox() { }
+function validateTermsCheckbox() {
+  const isTermChecked = isAcceptedTerms(checkboxTerms);
+  const termsFormData = checkboxTerms.parentNode;
+  if (!isTermChecked) {
+    termsFormData.setAttribute("data-error", "Vous devez accepter les conditions");
+    termsFormData.setAttribute("data-error-visible", "true");
+  } else {
+    termsFormData.removeAttribute("data-error");
+    termsFormData.removeAttribute("data-error-visible");
+  }
+}
 
-const formFields = {
-  firstName: validateFirstNameField,
-  lastName: validateLastNameField,
-  email: validateEmailField,
-  birthdate: validateBirthdateField,
-  quantity: validateQuantityField,
+
+function checkAndValidateField(rule, ruleParam, DOMelement, alertMessage){
+  console.log("ruleParam: " + ruleParam)
+  const checkRule = rule(ruleParam);
+  const elementFormData = DOMelement.parentNode;
+  if (!checkRule) {
+    elementFormData.setAttribute("data-error", alertMessage);
+    elementFormData.setAttribute("data-error-visible", "true");
+  } else {
+    elementFormData.removeAttribute("data-error");
+    elementFormData.removeAttribute("data-error-visible");
+  }
+}
+
+const fieldParams = {
+  firstName: [isNameValid, firstName.value, firstName, "ta mémé"],
 };
 
 submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  validateFirstNameField();
+
+  // validateFirstNameField();
+  checkAndValidateField(...fieldParams.firstName);
+
   validateLastNameField();
   validateEmailField();
   validateBirthdateField();
@@ -143,15 +211,19 @@ submitBtn.addEventListener("click", (event) => {
 firstName.addEventListener("blur", () => {
   validateFirstNameField();
 });
+
 lastName.addEventListener("blur", () => {
   validateLastNameField();
 });
+
 email.addEventListener("blur", () => {
   validateEmailField();
 });
+
 birthdate.addEventListener("blur", () => {
   validateBirthdateField();
 });
+
 quantity.addEventListener("blur", () => {
   validateQuantityField();
 });
@@ -162,3 +234,16 @@ quantity.addEventListener("blur", () => {
 //     validateField();
 //   });
 // });
+
+
+
+// const formFields = {
+//   //Each field take an array of parameters : [<validate_function>,<string:error_message>,<bool:hasBlurListenerr> ]
+//   firstName: [isNameValid, "firstName.value", "Veuillez entrer 2 caractères ou plus pour le champ du Prénom.", true],
+//   lastName: [isNameValid, "lastName.value", "Veuillez entrer 2 caractères ou plus pour le champ du nom.", true],
+//   email: [isEmailValid, "email.value", "Veuillez entrer une adresse email valide.", true],
+//   birthdate: [isDateValid, "date.value", "Veuillez entrer un format de date valide.", true],
+//   quantity: [isQuantityValid, "quantity.value", "Veuillez entrer un nombre entre 0 et 99", true],
+//   radioButtons: [isLocationChecked, "radioButtons", "Choisissez un lieu", false],
+//   checkboxTerms: [isAcceptedTerms, "checkboxTerms", "Vous devez accepter les conditions", false],
+// };
