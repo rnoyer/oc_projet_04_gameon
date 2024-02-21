@@ -183,7 +183,7 @@ main {
   padding-top: 10px;
 }
 
-.modal-body {
+#modal-body {
   padding: 15px 8%;
   margin: 15px auto;
 }
