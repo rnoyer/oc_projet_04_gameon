@@ -25,6 +25,10 @@ const checkboxTerms = document.querySelector("#checkbox1"); // (rno) Store form 
 const allInputs = document.querySelectorAll("input"); // (rno) Store form ...
 const modal = document.querySelector("#modal-body");
 
+// ---------------
+// MODAL BEHAVIOR
+// ---------------
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 closeBtn.forEach((btn) => btn.addEventListener("click", closeModal)); // (rno) Add Listener to close buttons
@@ -108,6 +112,51 @@ function checkAndValidateField(validationData) {
   return isValid
 }
 
+// ---------------
+// FORM CHECK AND MODAL BEHAVIOR ON CLICK TO SUBMIT BUTTON
+// ---------------
+
+submitBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  let firstIsValid = checkAndValidateField(fieldParams.first);
+  let lastIsValid = checkAndValidateField(fieldParams.last);
+  let emailIsValid = checkAndValidateField(fieldParams.email);
+  let birthdateIsValid = checkAndValidateField(fieldParams.birthdate);
+  let quantityIsValid = checkAndValidateField(fieldParams.quantity);
+  let locationIsValid = checkAndValidateField(fieldParams.location);
+  let checkbox1IsValid = checkAndValidateField(fieldParams.checkbox1);
+
+  if (firstIsValid && lastIsValid && emailIsValid && birthdateIsValid && quantityIsValid && locationIsValid && checkbox1IsValid){
+    successModal();
+  }
+});
+
+// ---------------
+// FIELD CHECK ON CHANGE
+// ---------------
+
+allInputs.forEach((input) => {
+  input.addEventListener("change", () => {
+    // Selon l'ID de l'input, on récupère les paramètres de validation correspondant
+    checkAndValidateField(
+      fieldParams[input.id.startsWith("location") ? "location" : input.id]
+    );
+  });
+});
+
+// ---------------
+// MODAL MODIFICATION TO DISPLAY SUCCESSFULLY SUBMITTED FORM
+// ---------------
+
+function successModal(){
+  modal.innerHTML = '<p>Merci ! Votre réservation a été reçue.</p>';
+}
+
+// ---------------
+// FIELDS PARAMETERS
+// ---------------
+
 const fieldParams = {
   first: {
     isValidField: checkName,
@@ -148,33 +197,3 @@ const fieldParams = {
     alertMessage: "Vous devez accepter les conditions",
   },
 };
-
-submitBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-
-  let firstIsValid = checkAndValidateField(fieldParams.first);
-  let lastIsValid = checkAndValidateField(fieldParams.last);
-  let emailIsValid = checkAndValidateField(fieldParams.email);
-  let birthdateIsValid = checkAndValidateField(fieldParams.birthdate);
-  let quantityIsValid = checkAndValidateField(fieldParams.quantity);
-  let locationIsValid = checkAndValidateField(fieldParams.location);
-  let checkbox1IsValid = checkAndValidateField(fieldParams.checkbox1);
-
-  if (firstIsValid && lastIsValid && emailIsValid && birthdateIsValid && quantityIsValid && locationIsValid && checkbox1IsValid){
-    successModal()
-  }
-});
-
-allInputs.forEach((input) => {
-  input.addEventListener("change", () => {
-    // Selon l'ID de l'input, on récupère les paramètres de validation correspondant
-    checkAndValidateField(
-      fieldParams[input.id.startsWith("location") ? "location" : input.id]
-    );
-  });
-});
-
-// Fonction qui ajoute le contenu de succes
-function successModal(){
-  modal.innerHTML = '<p>Merci ! Votre réservation a été reçue.</p>';
-}
