@@ -28,7 +28,6 @@ const modal = document.querySelector("#modal-body");
 // ---------------
 // MODAL BEHAVIOR
 // ---------------
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 closeBtn.forEach((btn) => btn.addEventListener("click", closeModal)); // (rno) Add Listener to close buttons
@@ -44,7 +43,6 @@ function closeModal() {
 // ---------------
 // REGEXs
 // ---------------
-
 // Check names format
 function checkName(name) {
   const regex = new RegExp("^[a-zA-Z]+(?:[' -][a-zA-Z]+)*$");
@@ -90,7 +88,6 @@ function checkTerms(checkbox) {
 // ---------------
 // FIELD VALIDATION FONCTION
 // ---------------
-
 function checkAndValidateField(validationData) {
   const { isValidField, inputElement, alertMessage, type } = validationData;
   // Certaines fonctions de validation ont besoin du value de l'élément, d'autres de l'élément lui-même
@@ -115,7 +112,6 @@ function checkAndValidateField(validationData) {
 // ---------------
 // FORM CHECK AND MODAL BEHAVIOR ON CLICK TO SUBMIT BUTTON
 // ---------------
-
 submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -135,7 +131,6 @@ submitBtn.addEventListener("click", (event) => {
 // ---------------
 // FIELD CHECK ON CHANGE
 // ---------------
-
 allInputs.forEach((input) => {
   input.addEventListener("change", () => {
     // Selon l'ID de l'input, on récupère les paramètres de validation correspondant
@@ -148,15 +143,15 @@ allInputs.forEach((input) => {
 // ---------------
 // MODAL MODIFICATION TO DISPLAY SUCCESSFULLY SUBMITTED FORM
 // ---------------
-
 function successModal(){
-  modal.innerHTML = '<p>Merci ! Votre réservation a été reçue.</p>';
+  modal.getElementsByTagName("form").reserve.classList.toggle("select-hide");
+  modal.lastElementChild.classList.toggle("select-hide");
+
 }
 
 // ---------------
 // FIELDS PARAMETERS
 // ---------------
-
 const fieldParams = {
   first: {
     isValidField: checkName,
