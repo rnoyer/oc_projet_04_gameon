@@ -35,6 +35,7 @@ closeBtn.forEach((btn) => btn.addEventListener("click", closeModal)); // (rno) A
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  window.scrollTo(0, 0);
   bodyElement.style.overflowY = "hidden";
 }
 // close modal form (rno)
