@@ -24,6 +24,7 @@ const radioButtons = document.querySelectorAll(".checkbox-input[type='radio']");
 const checkboxTerms = document.querySelector("#checkbox1"); // (rno) Store form ...
 const allInputs = document.querySelectorAll(".formData input"); // (rno) Store form ...
 const modal = document.querySelector("#modal-body");
+const bodyElement = document.querySelector("body");
 
 // ---------------
 // MODAL BEHAVIOR
@@ -34,10 +35,12 @@ closeBtn.forEach((btn) => btn.addEventListener("click", closeModal)); // (rno) A
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+  bodyElement.style.overflowY = "hidden";
 }
 // close modal form (rno)
 function closeModal() {
   modalbg.style.display = "none";
+  bodyElement.style.overflowY = "unset";
   cleanModal()
 }
 

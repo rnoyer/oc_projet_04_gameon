@@ -184,6 +184,8 @@ main {
 }
 
 #modal-body {
+  display: flex;
+  flex-direction: column;
   padding: 15px 8%;
   margin: 15px auto;
 }
@@ -213,6 +215,12 @@ input {
   text-align: center;
   font-size: 36px;
   font-weight: 400;
+}
+.success-modal{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .formData[data-error]::after {
   content: attr(data-error);
@@ -533,4 +541,20 @@ footer {
   to {
     opacity: 1;
   }
+}
+
+@media screen and (max-width: 768px) {
+  .content{
+    display: flex;
+    height: calc(100% - 107px);
+    margin: unset;
+    margin-top: 107px;
+    max-width: unset;
+  }
+  .bground{
+    overflow: unset;
+    background-color: unset;
+  }
+  .success-text{
+  margin: unset;
 }
