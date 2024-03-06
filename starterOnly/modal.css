@@ -208,6 +208,12 @@ input {
   font-size: 20px;
   height: 48px;
 }
+.success-text{
+  margin: 250px 0;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 400;
+}
 .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.6em;
@@ -215,7 +221,7 @@ input {
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
+  text-align: left;
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
@@ -296,7 +302,7 @@ input[data-error]::after {
   left: 21%;
   top: 19%;
 }
-.close {
+.cross {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -306,8 +312,8 @@ input[data-error]::after {
   cursor: pointer;
   transform: scale(0.7);
 }
-.close:before,
-.close:after {
+.cross:before,
+.cross:after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -315,14 +321,15 @@ input[data-error]::after {
   width: 3px;
   background-color: #fff;
 }
-.close:before {
+.cross:before {
   transform: rotate(45deg);
 }
-.close:after {
+.cross:after {
   transform: rotate(-45deg);
 }
 .btn-submit,
-.btn-signup {
+.btn-signup,
+.btn-fermer {
   background: #fe142f;
   display: block;
   margin: 0 auto;

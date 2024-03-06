@@ -53,7 +53,7 @@
 
       <div class="bground">
         <div class="content">
-          <span class="close"></span>
+          <span class="cross close"></span>
           <div id="modal-body">
             <form
               name="reserve"
@@ -199,7 +199,7 @@
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
+                  Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br />
               </div>
@@ -210,7 +210,10 @@
                 value="C'est parti"
               />
             </form>
-            <p class="select-hide">Merci ! Votre réservation a été reçue.</p>
+            <div class="success-modal select-hide">
+              <p class="success-text">Merci pour <br>votre inscription</p>
+              <input type="button" class="btn-fermer close" value="Fermer">
+            </div>
           </div>
         </div>
       </div>
