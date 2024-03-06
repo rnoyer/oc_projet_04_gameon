@@ -22,7 +22,7 @@ const date = document.querySelector("#birthdate"); // (rno) Store form ...
 const quantity = document.querySelector("#quantity"); // (rno) Store form ...
 const radioButtons = document.querySelectorAll(".checkbox-input[type='radio']"); // (rno) Store form ...
 const checkboxTerms = document.querySelector("#checkbox1"); // (rno) Store form ...
-const allInputs = document.querySelectorAll("input"); // (rno) Store form ...
+const allInputs = document.querySelectorAll(".formData input"); // (rno) Store form ...
 const modal = document.querySelector("#modal-body");
 
 // ---------------
@@ -38,6 +38,7 @@ function launchModal() {
 // close modal form (rno)
 function closeModal() {
   modalbg.style.display = "none";
+  cleanModal()
 }
 
 // ---------------
@@ -146,7 +147,29 @@ allInputs.forEach((input) => {
 function successModal(){
   modal.getElementsByTagName("form").reserve.classList.toggle("select-hide");
   modal.lastElementChild.classList.toggle("select-hide");
+}
 
+function cleanModal(){
+  modal.getElementsByTagName("form").reserve.classList.remove("select-hide");
+  modal.lastElementChild.classList.add("select-hide");
+
+
+  allInputs.forEach((input) => {
+    if(input.id.startsWith("location")){
+      input.checked = false;
+    }
+    else if (input.id === "checkbox1"){
+      input.checked = true;
+    }
+    else if (input.id === "checkbox2") {
+      input.checked = false;
+    }
+    else{
+      input.value = "";
+    }
+    input.parentNode.removeAttribute("data-error");
+    input.parentNode.removeAttribute("data-error-visible");
+  })
 }
 
 // ---------------
